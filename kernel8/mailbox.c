@@ -1,4 +1,4 @@
-// mailbox.c
+// mailbox.c v0.0.2
 #include "main.h" // main header file
 
 void mailbox_write(unsigned int message, unsigned int channel) {

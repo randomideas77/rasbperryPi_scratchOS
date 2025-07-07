@@ -1,4 +1,4 @@
-// main.c
+// main.c 0.1.0
 #include "main.h"       // main header file
 #include "mailbox.c"    // mailbox controller
 

@@ -1,3 +1,4 @@
+// start.s v0.1
 .extern stack_top
 
 .section .text
