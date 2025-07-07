@@ -16,5 +16,6 @@
 #define MAILBOX_WRITE  ((volatile unsigned int*)(MAILBOX_BASE + 0x20))
 #define MAILBOX_EMPTY   0x40000000
 #define MAILBOX_FULL   0x80000000
+#define MAILBOX_TIMEOUT_ERROR 0xFFFFFFFF
 
 #endif
