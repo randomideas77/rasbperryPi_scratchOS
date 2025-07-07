@@ -1,4 +1,4 @@
-// main.c 0.1.0
+// main.c 0.1.1
 #include "main.h"       // main header file
 #include "mailbox.c"    // mailbox controller
 
@@ -13,8 +13,8 @@ void led_on(unsigned int duration_ms, unsigned int final_ms) {
     delay(final_ms);        // inter-flash pause
 }
 
-void led_flash_binary(unsigned int value) {
-    for (int i = 3; i >= 0; i--) {
+void led_flash_binary(unsigned int value, unsigned int size) {
+    for (int i = size; i >= 0; i--) {
         if ((value >> i) & 0x1) {
             led_on(600, 200);  // binary 1
         } else {
@@ -51,6 +51,9 @@ void kernel_main(void) {
     ledPatternOne();
     delay(1000);
 
+    unsigned int revision = get_revision_number();
+    led_flash_binary(revision, 31);
+
     int num0 = 0;
     // main loop
     while (1) {
@@ -59,6 +62,6 @@ void kernel_main(void) {
         int num1 = mathOne(num0, 1, 1); // should return 3
         int num2 = mathOne(4, 3, 2); // should return 1
         int num3 = mathOne(num1, num2, 3); // should return 3
-        led_flash_binary(num3);
+        led_flash_binary(num3, 3);  // flashes 4 bit output of num3
     }
 }

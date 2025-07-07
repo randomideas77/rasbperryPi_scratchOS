@@ -1,4 +1,4 @@
-// main.h 0.0.3
+// main.h 0.0.4
 #ifndef MAIN_H
 #define MAIN_H
 
