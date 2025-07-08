@@ -1,0 +1,67 @@
+hardware notes
+
+----------------------- memory mappings -----------------------
+child and parent address mappings from dts file
+    <child-bus-addr parent-bus-addr size>
+    ranges = <0x7e000000 0x3f000000 0x1000000 0x40000000 0x40000000 0x40000>;
+    
+map0
+    child:  0x73000000
+    parent: 0x3f000000
+    size:   0x10000000 (16MB)
+map1
+    child:  0x40000000
+    parent: 0x40000000
+    size:   0x40000 (256KB)
+
+------------------------ mailbox specs ------------------------
+
+mbox[0] = total size of buffer in bytes
+mbox[1] = request/response code
+    0x00000000: request
+    0x80000000: response succcess
+    0x80000001: response error
+mbox[2..n] = tags
+    mbox[n] = tag identifier
+    mbox[n+1] = value buffer size
+    mbox[n+2] = request code (0 for requests)
+    mbox[n+3..] = arguments/response
+mbox[...n] = 0 (indicates end of tag list)
+
+tag ID's:
+tag name : tag ID : value buffer size
+
+get board revision : 0x00010001 : 4
+    returns board revision number
+
+get board model : 0x00010002 : 4
+    returns board model number
+
+get board MAC addr : 0x00010003 : 6
+    returns MAC address (6 bytes)
+
+get board SN : 0x00010004 : 8
+    returns 64-bit serial number
+
+get ARM memory : 0x00010005 : 8
+    returns base address and size of ARM memory
+
+get VC memory : 0x00010006 : 8
+    return base size of GPU memory
+
+get clock rate : 0x00030006 : 8
+    returns clock speed; needs clock ID
+    
+set clock rate : 0x00030001 : 12
+    sets clock speed; Clock ID + rate + skip turbo flag
+
+clock ID:
+    EMMC : 0x00000001
+    UART : 0x00000002
+    ARM Core : 0x00000003
+    V3D : 0x00000004
+    H264 : 0x00000005
+    ISP : 0x00000006
+    SDRAM : 0x00000007
+    Pixel Clock : 0x00000008
+    PWM : 0x00000009
